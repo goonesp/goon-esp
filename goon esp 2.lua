@@ -38,11 +38,16 @@ local function createESP(player)
 		-- Determine the color based on whether it's a teammate or enemy
 		local team = player.Team
 		if team then
-			-- If Team ESP is off, hide teammates' ESP
-			if teamESPEnabled or player.Team ~= game.Players.LocalPlayer.Team then
-				highlight.FillColor = Color3.fromRGB(255, 0, 0)  -- Red for enemies
+			if teamESPEnabled and player.Team == game.Players.LocalPlayer.Team then
+				-- Hide teammates' ESP when Team ESP is enabled
+				highlight.FillTransparency = 1 -- Make it invisible for teammates
 			else
-				highlight.FillColor = Color3.fromRGB(0, 255, 0)  -- Green for teammates (only if team ESP is enabled)
+				-- Show enemies with red ESP, teammates with green
+				if player.Team ~= game.Players.LocalPlayer.Team then
+					highlight.FillColor = Color3.fromRGB(255, 0, 0)  -- Red for enemies
+				else
+					highlight.FillColor = Color3.fromRGB(0, 255, 0)  -- Green for teammates (if Team ESP is off)
+				end
 			end
 		else
 			highlight.FillColor = Color3.fromRGB(255, 255, 0)  -- Default Yellow for no team
@@ -113,5 +118,3 @@ game.Players.PlayerAdded:Connect(function(player)
 		end
 	end)
 end)
-
-
