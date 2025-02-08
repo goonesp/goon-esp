@@ -133,17 +133,17 @@ hitboxKeyInput.PlaceholderText = "Hitbox Key"
 
 -- Function to switch between tabs
 local function switchTab(tab)
-	if tab == "ESP" then
-		espContentFrame.Visible = true
-		hitboxContentFrame.Visible = false
-		espTabButton.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
-		hitboxTabButton.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
-	elseif tab == "Hitbox Expander" then
-		espContentFrame.Visible = false
-		hitboxContentFrame.Visible = true
-		espTabButton.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
-		hitboxTabButton.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
-	end
+    if tab == "ESP" then
+        espContentFrame.Visible = true
+        hitboxContentFrame.Visible = false
+        espTabButton.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
+        hitboxTabButton.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
+    elseif tab == "Hitbox Expander" then
+        espContentFrame.Visible = false
+        hitboxContentFrame.Visible = true
+        espTabButton.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
+        hitboxTabButton.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
+    end
 end
 
 -- Set default tab to "ESP"
@@ -151,38 +151,38 @@ switchTab("ESP")
 
 -- When ESP tab is clicked, switch to ESP settings
 espTabButton.MouseButton1Click:Connect(function()
-	switchTab("ESP")
+    switchTab("ESP")
 end)
 
 -- When Hitbox Expander tab is clicked, switch to Hitbox settings
 hitboxTabButton.MouseButton1Click:Connect(function()
-	switchTab("Hitbox Expander")
+    switchTab("Hitbox Expander")
 end)
 
 -- Function to create ESP for a player
 local function createESP(player)
-	if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
-		local highlight = Instance.new("Highlight")
-		highlight.Parent = player.Character
-		highlight.FillColor = Color3.fromRGB(255, 0, 0)  -- Red color for enemies
-		highlight.OutlineColor = Color3.fromRGB(255, 255, 255)  -- White outline
-		highlight.FillTransparency = 0.5
-		highlight.OutlineTransparency = 0
-	end
+    if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+        local highlight = Instance.new("Highlight")
+        highlight.Parent = player.Character
+        highlight.FillColor = Color3.fromRGB(255, 0, 0)  -- Red color for enemies
+        highlight.OutlineColor = Color3.fromRGB(255, 255, 255)  -- White outline
+        highlight.FillTransparency = 0.5
+        highlight.OutlineTransparency = 0
+    end
 end
 
 -- Toggle ESP function
 local function toggleESP()
-	for _, player in pairs(game.Players:GetPlayers()) do
-		if player.Character then
-			createESP(player)
-		end
-	end
+    for _, player in pairs(game.Players:GetPlayers()) do
+        if player.Character then
+            createESP(player)
+        end
+    end
 end
 
 -- Toggle Team ESP function
 local function toggleTeamESP()
-	-- Update the ESP based on team settings
+    -- Update the ESP based on team settings
 end
 
 -- Button functions
@@ -193,28 +193,28 @@ TeamButton.MouseButton1Click:Connect(toggleTeamESP)
 local dragInput, dragStart, startPos
 
 local function update(input)
-	local delta = input.Position - dragStart
-	containerFrame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+    local delta = input.Position - dragStart
+    containerFrame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
 end
 
 local function onInputBegan(input, gameProcessed)
-	if gameProcessed then return end
-	if input.UserInputType == Enum.UserInputType.MouseButton1 then
-		dragStart = input.Position
-		startPos = containerFrame.Position
-		input.Changed:Connect(function()
-			if input.UserInputState == Enum.UserInputState.End then
-				dragInput = nil
-			end
-		end)
-		dragInput = input.Changed:Connect(update)
-	end
+    if gameProcessed then return end
+    if input.UserInputType == Enum.UserInputType.MouseButton1 then
+        dragStart = input.Position
+        startPos = containerFrame.Position
+        input.Changed:Connect(function()
+            if input.UserInputState == Enum.UserInputState.End then
+                dragInput = nil
+            end
+        end)
+        dragInput = input.Changed:Connect(update)
+    end
 end
 
 local function onInputEnded(input)
-	if dragInput then
-		dragInput:Disconnect()
-	end
+    if dragInput then
+        dragInput:Disconnect()
+    end
 end
 
 containerFrame.InputBegan:Connect(onInputBegan)
@@ -222,21 +222,9 @@ containerFrame.InputEnded:Connect(onInputEnded)
 
 -- Handling the Insert key to toggle the GUI visibility
 local function onKeyPress(input)
-	if input.KeyCode == Enum.KeyCode.Insert then
-		containerFrame.Visible = not containerFrame.Visible
-	end
+    if input.KeyCode == Enum.KeyCode.Insert then
+        containerFrame.Visible = not containerFrame.Visible
+    end
 end
 
 game:GetService("UserInputService").InputBegan:Connect(onKeyPress)
-
-
-
-
-
-
-
-
-
-
-
-
