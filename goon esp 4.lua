@@ -97,6 +97,40 @@ hitboxTransparencyInput.BorderSizePixel = 2
 hitboxTransparencyInput.BorderColor3 = Color3.fromRGB(255, 165, 0)
 hitboxTransparencyInput.PlaceholderText = "Transparency (0-100)"
 
+-- Key Binding Inputs
+local espKeyInput = Instance.new("TextBox")
+espKeyInput.Parent = espContentFrame
+espKeyInput.Size = UDim2.new(0, 200, 0, 40)
+espKeyInput.Position = UDim2.new(0.5, -100, 0, 150)
+espKeyInput.Text = "E"  -- Default key
+espKeyInput.TextColor3 = Color3.fromRGB(255, 255, 255)
+espKeyInput.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
+espKeyInput.BorderSizePixel = 2
+espKeyInput.BorderColor3 = Color3.fromRGB(255, 165, 0)
+espKeyInput.PlaceholderText = "ESP Key"
+
+local teamKeyInput = Instance.new("TextBox")
+teamKeyInput.Parent = espContentFrame
+teamKeyInput.Size = UDim2.new(0, 200, 0, 40)
+teamKeyInput.Position = UDim2.new(0.5, -100, 0, 200)
+teamKeyInput.Text = "T"  -- Default key
+teamKeyInput.TextColor3 = Color3.fromRGB(255, 255, 255)
+teamKeyInput.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
+teamKeyInput.BorderSizePixel = 2
+teamKeyInput.BorderColor3 = Color3.fromRGB(255, 165, 0)
+teamKeyInput.PlaceholderText = "Team ESP Key"
+
+local hitboxKeyInput = Instance.new("TextBox")
+hitboxKeyInput.Parent = espContentFrame
+hitboxKeyInput.Size = UDim2.new(0, 200, 0, 40)
+hitboxKeyInput.Position = UDim2.new(0.5, -100, 0, 250)
+hitboxKeyInput.Text = "H"  -- Default key
+hitboxKeyInput.TextColor3 = Color3.fromRGB(255, 255, 255)
+hitboxKeyInput.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
+hitboxKeyInput.BorderSizePixel = 2
+hitboxKeyInput.BorderColor3 = Color3.fromRGB(255, 165, 0)
+hitboxKeyInput.PlaceholderText = "Hitbox Key"
+
 -- Function to switch between tabs
 local function switchTab(tab)
     if tab == "ESP" then
@@ -185,3 +219,12 @@ end
 
 containerFrame.InputBegan:Connect(onInputBegan)
 containerFrame.InputEnded:Connect(onInputEnded)
+
+-- Handling the Insert key to toggle the GUI visibility
+local function onKeyPress(input)
+    if input.KeyCode == Enum.KeyCode.Insert then
+        containerFrame.Visible = not containerFrame.Visible
+    end
+end
+
+game:GetService("UserInputService").InputBegan:Connect(onKeyPress)
